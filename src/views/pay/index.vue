@@ -1,10 +1,10 @@
 <template>
-  <div>我是MyOrder</div>
+  <div>我是pay</div>
 </template>
 
 <script>
 export default {
-  name: 'MyOrderIndex'
+  name: 'payIndex'
 }
 </script>
 

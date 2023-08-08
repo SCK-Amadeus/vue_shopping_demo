@@ -1,10 +1,10 @@
 <template>
-$END$
+  <div>Cart</div>
 </template>
 
 <script>
 export default {
-name: "cart"
+  name: 'CartIndex'
 }
 </script>
 

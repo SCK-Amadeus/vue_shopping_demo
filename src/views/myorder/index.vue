@@ -1,10 +1,10 @@
 <template>
-  <div>我是layout</div>
+  <div>我是MyOrder</div>
 </template>
 
 <script>
 export default {
-  name: 'LayoutIndex'
+  name: 'MyOrderIndex'
 }
 </script>
 
