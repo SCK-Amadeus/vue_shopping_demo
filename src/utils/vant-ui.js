@@ -1,6 +1,8 @@
 import Vue from 'vue'
-import { Button, Tabbar, TabbarItem, NavBar, Toast, Search, Swipe, SwipeItem, Grid, GridItem, Icon, Rate, ActionSheet, Dialog } from 'vant'
+import { Button, Tabbar, TabbarItem, NavBar, Toast, Search, Swipe, SwipeItem, Grid, GridItem, Icon, Rate, ActionSheet, Dialog, Checkbox, CheckboxGroup } from 'vant'
 
+Vue.use(Checkbox)
+Vue.use(CheckboxGroup)
 Vue.use(Dialog)
 Vue.use(ActionSheet)
 Vue.use(Icon)
