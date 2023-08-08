@@ -50,7 +50,7 @@ router.beforeEach((to, from, next) => {
   if (token) {
     next()
   } else {
-    next('/login')
+    next('/login1')
   }
 })
 export default router
