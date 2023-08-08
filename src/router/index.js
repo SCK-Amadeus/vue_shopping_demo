@@ -16,7 +16,6 @@ import store from '@/store'
 Vue.use(VueRouter)
 const authUrls = ['/pay', '/myorder']
 const routes = [
-  { path: '/login', component: Login },
   {
     path: '/',
     component: Layout,
@@ -28,6 +27,7 @@ const routes = [
       { path: '/user', component: User }
     ]
   },
+  { path: '/login', component: Login },
   { path: '/search', component: Search },
   { path: '/searchlist', component: SearchList },
   // 动态路由传参，确认将来是哪个商品，路由参数中携带 id
@@ -43,6 +43,7 @@ router.beforeEach((to, from, next) => {
   if (!authUrls.includes(to.path)) {
     // 非权限页面，直接放行
     next()
+    return
   }
 
   const token = store.getters.token

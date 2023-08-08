@@ -70,6 +70,7 @@
         <span>首页</span>
       </div>
       <div class="icon-cart">
+        <span v-if="cartTotal > 0" class="num">{{ cartTotal }}</span>
         <van-icon name="shopping-cart-o" />
         <span>购物车</span>
       </div>
@@ -100,7 +101,7 @@
             <CountBox v-model="addCount"> </CountBox>
           </div>
           <div class="showbtn" v-if="detail.stock_total>0">
-            <div class="btn" v-if="true">加入购物车</div>
+            <div class="btn" v-if="mode==='cart'" @click="addCart">加入购物车</div>
             <div class="btn now" v-else>立刻购买</div>
           </div>
           <div class="btn-none" v-else>该商品已抢完</div>
@@ -114,6 +115,8 @@
 import { getProComments, getProDetail } from '@/api/product'
 import defaultImg from '@/assets/default-avatar.png'
 import CountBox from '@/components/CountBox'
+import { addCart } from '@/api/cart'
+import { Toast } from 'vant'
 export default {
   name: 'ProDetail',
   components: { CountBox },
@@ -130,7 +133,8 @@ export default {
       defaultImg,
       showPannel: false,
       mode: 'cart',
-      addCount: 1
+      addCount: 1,
+      cartTotal: 0
     }
   },
   computed: {
@@ -163,6 +167,30 @@ export default {
     buyFn () {
       this.mode = 'buyNow'
       this.showPannel = true
+    },
+    async addCart () {
+      if (!this.$store.getters.token) {
+        console.log('确认框')
+        this.$dialog.confirm({
+          title: '温馨提示',
+          message: '请登录',
+          confirmButtonText: '去登陆',
+          cancelButtonText: '取消'
+        }).then(() => {
+          this.$router.replace({
+            path: '/login',
+            query: {
+              backUrl: this.$route.fullPath
+            }
+          })
+        }).catch(() => {
+          // on cancel
+        })
+      }
+
+      const { data } = await addCart(this.goodsId, this.addCount, this.detail.skuList[0].goods_sku_id)
+      this.cartTotal = data.cartTotal
+      Toast('加入购物车成功')
     }
   }
 }
@@ -361,5 +389,20 @@ export default {
   .btn-none {
     background-color: #cccccc;
   }
-}
+}.footer .icon-cart {
+   position: relative;
+   padding: 0 6px;
+   .num {
+     z-index: 999;
+     position: absolute;
+     top: -2px;
+     right: 0;
+     min-width: 16px;
+     padding: 0 4px;
+     color: #fff;
+     text-align: center;
+     background-color: #ee0a24;
+     border-radius: 50%;
+   }
+ }
 </style>

@@ -95,7 +95,8 @@ export default {
       const res = await codeLogin(this.mobile, this.msgCode)
       this.$store.commit('user/setUserInfo', res.data)
       Toast('登陆成功')
-      await this.$router.push('/')
+      const url = this.$route.query.backUrl || '/'
+      await this.$router.replace(url)
     }
   },
   destroyed () {
